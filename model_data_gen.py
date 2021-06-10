@@ -15,4 +15,14 @@ def model_data_gen():
     train_generator = train_data_genertor.flow_from_directory(TRAINING_DIR, 
                                                         batch_size=5, 
                                                         target_size=(150, 150))
-    return train_generator
+    train_generator = train_data_genertor.flow_from_directory(TRAINING_DIR, 
+                                                        batch_size=5, 
+                                                        target_size=(150, 150))
+    VALIDATION_DIR = "./test"
+    validation_data_genertor = ImageDataGenerator(rescale=1.0/255)
+
+    validation_generator = validation_data_genertor.flow_from_directory(VALIDATION_DIR, 
+                                                            batch_size=5, 
+                                                            target_size=(150, 150))
+    checkpoint = ModelCheckpoint('model-{epoch:03d}.model',monitor='val_loss',verbose=0,save_best_only=True,mode='auto')
+    return train_generator,validation_generator,checkpoint
