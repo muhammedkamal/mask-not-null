@@ -12,5 +12,9 @@ def model_constructtion():
         Dense(50, activation='relu'),
         Dense(2, activation='softmax')
     ])
+    
+    # Uncomment this if you're resuming training, load the last ModelCheckpoint and continue training.
+    # model = load_model("./model2-004.model")
+    
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
     return model
